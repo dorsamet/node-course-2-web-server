@@ -11,10 +11,12 @@ var newObject = (url) => {
 var getNameForUrl = (url) => {
   switch (url) {
     case '/':
-      return 'Home Page'
+      return 'Home Page';
       break;
     case '/about':
-      return 'About Page'
+      return 'About Page';
+    case '/projects':
+      return 'Projects';
     default:
       console.error('Illegal url given');
   }

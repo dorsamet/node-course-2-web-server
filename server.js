@@ -2,7 +2,7 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
-const renderingObjectFactory = require('./renderingObjectFactory');
+const rendererHelper = require('./renderer-helper');
 
 var app = express();
 const port = process.env.PORT || 3000;
@@ -31,18 +31,21 @@ app.use(express.static(__dirname + '/public'));
 hbs.registerHelper('getCurrentYear', () => {
   return new Date().getFullYear()
 });
+
 hbs.registerHelper('screamIt', (text) => {
   return text.toUpperCase();
 });
 
 app.get('/', (req, res) => {
-  res.render('home.hbs',
-    renderingObjectFactory.newObject(req.url));
+  rendererHelper.innerRender(res, 'home.hbs', req.url);
 });
 
 app.get('/about', (req, res) => {
-    res.render('about.hbs',
-    renderingObjectFactory.newObject(req.url));
+    rendererHelper.innerRender(res, 'about.hbs', req.url);
+});
+
+app.get('/projects', (req, res) => {
+  rendererHelper.innerRender(res, 'projects.hbs', req.url);
 });
 
 app.get('/bad', (req, res) => {
